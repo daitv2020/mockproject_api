@@ -16,16 +16,17 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
- * map class voi table trong database
+ * mapping class voi table trong database
  */
 @Entity
 @Table(name = "User")
+//@Table(name = "User", catalog = "heroku_a10f190c7669d65")
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * map column
+	 * mapping column
 	 */
 	@Column(name = "UserID")
 	@Id
