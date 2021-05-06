@@ -14,16 +14,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * map class voi table trong database
+ * mapping class voi table trong database
  */
 @Entity
 @Table(name = "City")
+//@Table(name = "City", catalog = "heroku_a10f190c7669d65")
 public class City implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * map column
+	 * mapping column
 	 */
 	@Column(name = "CityID")
 	@Id

@@ -2,8 +2,11 @@ package com.vti.mock.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,12 +34,42 @@ public class CityController {
 
 	@Autowired
 	private ICityService cityService;
-	
+
 	@Autowired
 	private ICountryService countryService;
-	
+
 	/*
-	 * get info city by id 
+	 * get list city by filter, search with character
+	 */
+	@GetMapping()
+	public Page<CityDTOSearch> getAllCities(Pageable pageable,
+			@RequestParam(name = "search", required = false) String search) {
+
+		Page<City> cities = cityService.getAllCities(pageable, search);
+
+		Page<CityDTOSearch> citiesDto = cities.map(new Function<City, CityDTOSearch>() {
+
+			@Override
+			public CityDTOSearch apply(City entity) {
+				List<UserDTOSearch> listUserDto = new ArrayList<UserDTOSearch>();
+
+				for (User user : entity.getListUser()) {
+					UserDTOSearch userDTOSearch = new UserDTOSearch(user.getName());
+					listUserDto.add(userDTOSearch);
+				}
+
+				CityDTOSearch dto = new CityDTOSearch(entity.getName(), entity.getDescription(),
+						entity.getCountry().getId(), entity.getImage(), listUserDto);
+				return dto;
+			}
+
+		});
+		return citiesDto;
+
+	}
+
+	/*
+	 * get info city by id
 	 */
 	@GetMapping(value = "/{id}")
 	public CityDTOSearch getCityById(@PathVariable(name = "id") int id) {
@@ -44,22 +77,22 @@ public class CityController {
 		if (city == null) {
 			return null;
 		}
-		
+
 		List<UserDTOSearch> listUser = new ArrayList<>();
-		
+
 		for (User user : city.getListUser()) {
 			UserDTOSearch userDTO = new UserDTOSearch(user.getName());
 			listUser.add(userDTO);
 		}
-		
+
 		CityDTOSearch cityDTO = new CityDTOSearch(city.getName(), city.getDescription(), city.getCountry().getId(),
 				city.getImage(), listUser);
-		
+
 		return cityDTO;
 	}
 
 	/*
-	 * get info city by name 
+	 * get info city by name
 	 */
 	@GetMapping(value = "name/{name}")
 	public CityDTOSearch getCityByName(@PathVariable(name = "name") String name) {
@@ -78,15 +111,15 @@ public class CityController {
 		for (User user : city.getListUser()) {
 			UserDTOSearch userDTOSearch = new UserDTOSearch(user.getName());
 			listDtos.add(userDTOSearch);
-			
+
 		}
-		CityDTOSearch cityDTOSearch = new CityDTOSearch(city.getName(), city.getDescription(), city.getCountry().getId(),
-				city.getImage(), listDtos);
+		CityDTOSearch cityDTOSearch = new CityDTOSearch(city.getName(), city.getDescription(),
+				city.getCountry().getId(), city.getImage(), listDtos);
 		return cityDTOSearch;
 	}
-	
+
 	/*
-	 * create city 
+	 * create city
 	 */
 	@PostMapping()
 	public void createCity(@RequestBody CityDTOSearch cityDto) {
@@ -94,43 +127,41 @@ public class CityController {
 		city.setName(cityDto.getName());
 		city.setDescription(cityDto.getDescription());
 		city.setImage(cityDto.getImage());
-		Country countryid = countryService.getCountryById(cityDto.getCountryID()); 
+		Country countryid = countryService.getCountryById(cityDto.getCountryID());
 		city.setCountry(countryid);
-		
+
 		cityService.createCity(city);
 	}
-	
+
 	/*
-	 * update city 
+	 * update city
 	 */
 	@PutMapping(value = "/{id}")
 	public void updateCity(@PathVariable(name = "id") int id, @RequestBody CityDTOFormUpdate cityUpdate) {
 		City city = cityService.getCityById(id);
 		city.setName(cityUpdate.getName());
 		city.setDescription(cityUpdate.getDescription());
-		
+
 		Country countryid = countryService.getCountryById(cityUpdate.getCountryID());
 		city.setCountry(countryid);
 		city.setImage(cityUpdate.getImage());
-		
+
 		cityService.updateCity(city);
 	}
-	
+
 	/*
-	 * delete 1 city 
+	 * delete 1 city
 	 */
 	@DeleteMapping(value = "/{id}")
 	public void deleteCity(@PathVariable(name = "id") int id) {
 		cityService.deleteCity(id);
 	}
-	
+
 	/*
-	 * delete multiple city  
+	 * delete multiple city
 	 */
 	@DeleteMapping()
-	public void deleteCities(
-			@RequestParam(name = "ids")
-			List<Integer> ids) {
+	public void deleteCities(@RequestParam(name = "ids") List<Integer> ids) {
 		cityService.deleteCities(ids);
 	}
 }

@@ -10,16 +10,17 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * map class voi table trong database
+ * mapping class voi table trong database
  */
 @Entity
 @Table(name = "Admin")
+//@Table(name = "Admin", catalog = "heroku_a10f190c7669d65")
 public class Admin implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * map column
+	 * mapping column
 	 */
 	@Column(name = "AdminID")
 	@Id

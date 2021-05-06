@@ -12,16 +12,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- * map class voi table trong database
+ * mapping class voi table trong database
  */
 @Entity
 @Table(name = "Country")
+//@Table(name = "Country", catalog = "heroku_a10f190c7669d65")
 public class Country implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * map column
+	 * mapping column
 	 */
 	@Column(name = "CountryID")
 	@Id
