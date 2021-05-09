@@ -42,7 +42,7 @@ public class CitySpecification implements Specification<City> {
 		}
 
 		if (operator.equalsIgnoreCase("LIKE")) {
-			return criteriaBuilder.like(root.<String>get(key), "%" + value.toString() + "%");
+			return criteriaBuilder.like(root.<String>get(key), value.toString() + "%");
 		}
 
 		return null;

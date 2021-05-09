@@ -51,21 +51,17 @@ public class CityController {
 
 			@Override
 			public CityDTOSearch apply(City entity) {
-				List<UserDTOSearch> listUserDto = new ArrayList<UserDTOSearch>();
-
-				for (User user : entity.getListUser()) {
-					UserDTOSearch userDTOSearch = new UserDTOSearch(user.getName());
-					listUserDto.add(userDTOSearch);
-				}
-
+//				List<UserDTOSearch> listDtos = new ArrayList<UserDTOSearch>();
+//				for (User user : city.getListUser()) {
+//					UserDTOSearch userDTOSearch = new UserDTOSearch(user.getName());
+//					listDtos.add(userDTOSearch);
+//				}  thêm listDtos vào phần new CityDTOSearch(...listDtos) để hiển thị list user
 				CityDTOSearch dto = new CityDTOSearch(entity.getName(), entity.getDescription(),
-						entity.getCountry().getId(), entity.getImage(), listUserDto);
+						entity.getCountry().getId(), entity.getImage());
 				return dto;
 			}
-
 		});
 		return citiesDto;
-
 	}
 
 	/*
@@ -77,16 +73,8 @@ public class CityController {
 		if (city == null) {
 			return null;
 		}
-
-		List<UserDTOSearch> listUser = new ArrayList<>();
-
-		for (User user : city.getListUser()) {
-			UserDTOSearch userDTO = new UserDTOSearch(user.getName());
-			listUser.add(userDTO);
-		}
-
 		CityDTOSearch cityDTO = new CityDTOSearch(city.getName(), city.getDescription(), city.getCountry().getId(),
-				city.getImage(), listUser);
+				city.getImage());
 
 		return cityDTO;
 	}
@@ -101,20 +89,8 @@ public class CityController {
 			return null;
 		}
 
-		List<UserDTOSearch> listDtos = new ArrayList<UserDTOSearch>();
-
-//		for (int i = 0; i < city.getListUser().size(); i++) {
-//			UserDTO userDTO = new UserDTO(city.getListUser().get(i).getId(), city.getListUser().get(i).getName());
-//			listDtos.add(userDTO);
-//		}
-
-		for (User user : city.getListUser()) {
-			UserDTOSearch userDTOSearch = new UserDTOSearch(user.getName());
-			listDtos.add(userDTOSearch);
-
-		}
 		CityDTOSearch cityDTOSearch = new CityDTOSearch(city.getName(), city.getDescription(),
-				city.getCountry().getId(), city.getImage(), listDtos);
+				city.getCountry().getId(), city.getImage());
 		return cityDTOSearch;
 	}
 
