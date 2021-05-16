@@ -29,7 +29,6 @@ import com.vti.mock.service.ICountryService;
 
 @RestController
 @RequestMapping(value = "api/v1/cities")
-@CrossOrigin("*")
 public class CityController {
 
 	@Autowired

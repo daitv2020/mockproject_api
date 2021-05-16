@@ -40,6 +40,13 @@ public class Admin implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Admin(int id, String email) {
+		super();
+		this.id = id;
+		this.email = email;
+	}
+
+
 	/**
 	 * getter va setter
 	 */

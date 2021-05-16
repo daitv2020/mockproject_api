@@ -3,8 +3,12 @@ package com.vti.mock.service;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.vti.mock.entity.Admin;
 import com.vti.mock.entity.User;
 import com.vti.mock.repository.IUserRepository;
 
