@@ -1,7 +1,5 @@
 package com.vti.mock.service;
 
-import java.util.List;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +9,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.vti.mock.entity.City;
 import com.vti.mock.entity.User;
 import com.vti.mock.repository.IUserRepository;
-import com.vti.mock.specification.CitySpecification;
 import com.vti.mock.specification.UserSpecification;
 
 @Service
@@ -53,16 +49,7 @@ public class UserService implements IUserService{
 	}
 
 	/**
-	 * get info by id
-	 */
-	@Override
-	public User getUserById(int id) {
-		return userRepository.findById(id).get();
-	}
-
-
-	/**
-	 * create city
+	 * create user
 	 */
 	@Override
 	public void createUser(User user) {
@@ -70,20 +57,11 @@ public class UserService implements IUserService{
 	}
 
 	/**
-	 * update info city
-	 */
-	@Override
-	public void updateUser(User user) {
-		userRepository.save(user);
-	}
-
-	/**
-	 * delete 1 city
+	 * delete 1 user
 	 */
 	@Override
 	public void deleteUser(int id) {
 		userRepository.deleteById(id);
 	}
-
 
 }

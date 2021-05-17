@@ -42,9 +42,6 @@ public class User implements Serializable {
 	@Column(name = "Email", length = 50, nullable = false, unique = true)
 	private String email;
 
-	@Column(name = "Address", length = 250)
-	private String address;
-
 	/**
 	 * join with city table -> Favourite city
 	 */
@@ -92,14 +89,6 @@ public class User implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
 	}
 	
 	public List<City> getFavoriteCities() {

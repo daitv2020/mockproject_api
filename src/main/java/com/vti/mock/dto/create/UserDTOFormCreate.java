@@ -2,6 +2,7 @@ package com.vti.mock.dto.create;
 
 public class UserDTOFormCreate {
 	
+	private int id;
 
 	private String name;
 
@@ -9,7 +10,9 @@ public class UserDTOFormCreate {
 
 	private String facebookId;
 	
-	
+	public int getId() {
+		return id;
+	}
 	
 	public String getName() {
 		return name;
@@ -35,8 +38,8 @@ public class UserDTOFormCreate {
 		this.facebookId = facebookId;
 	}
 
-	public UserDTOFormCreate(String name, String email, String facebookId) {
-		super();
+	public UserDTOFormCreate(int id ,String name, String email, String facebookId) {
+		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.facebookId = facebookId;
@@ -45,8 +48,5 @@ public class UserDTOFormCreate {
 	public UserDTOFormCreate() {
 		super();
 	}
-
-
-
 
 }

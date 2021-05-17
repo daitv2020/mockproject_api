@@ -7,7 +7,6 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import com.vti.mock.entity.City;
 import com.vti.mock.entity.User;
 
 public class UserSpecification implements Specification<User> {
