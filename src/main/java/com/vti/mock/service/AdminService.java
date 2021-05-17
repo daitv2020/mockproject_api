@@ -43,21 +43,4 @@ public class AdminService implements IAdminService{
 	public Page<Admin> getAll(Pageable pageable) {
 		return adminRepository.findAll(pageable);
 	}
-
-//	@Override
-//	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-//		Admin admin = adminRepository.findByEmail(email);
-//
-//		String role = null;
-//		if (admin != null) {
-//			role = "Admin";
-//		} else {
-//			throw new UsernameNotFoundException(email);
-//		}
-//
-//		return new org.springframework.security.core.userdetails.User(
-//				admin.getEmail(), 
-//				admin.getPassword(),
-//				AuthorityUtils.createAuthorityList(role));
-//	}
 }

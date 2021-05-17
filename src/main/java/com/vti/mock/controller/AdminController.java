@@ -1,6 +1,5 @@
 package com.vti.mock.controller;
 
-import java.security.Principal;
 import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,7 @@ import com.vti.mock.entity.Admin;
 import com.vti.mock.service.IAdminService;
 
 @RestController
-@RequestMapping(value = "api/v1/login")
+@RequestMapping(value = "api/v1/admin")
 public class AdminController {
 	
 	@Autowired

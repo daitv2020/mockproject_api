@@ -8,8 +8,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -23,7 +21,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private IAdminService service;
 	
-	// Không cần mã hóa code
+	// Không cần mã hóa password
 	
 	@SuppressWarnings("deprecation")
 	@Bean
@@ -44,12 +42,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.cors()
 			.and()
 			.authorizeRequests()
-				.antMatchers("/api/v1/login").hasAnyAuthority("Admin","Manager")
-				.antMatchers(HttpMethod.DELETE, "/api/v1/cities").hasAnyAuthority("Admin","Manager")
-				.antMatchers(HttpMethod.DELETE, "/api/v1/cities/*").hasAnyAuthority("Admin","Manager")
-				.antMatchers(HttpMethod.PUT, "/api/v1/cities/*").hasAnyAuthority("Admin","Manager")
-				.antMatchers(HttpMethod.POST, "/api/v1/cities").hasAnyAuthority("Admin","Manager")
-				.antMatchers(HttpMethod.GET, "/api/v1/cities").hasAnyAuthority("Admin","Manager")
+				.antMatchers("/api/v1/login").hasAnyAuthority("Admin")
+				.antMatchers(HttpMethod.DELETE, "/api/v1/cities").hasAnyAuthority("Admin")
+				.antMatchers(HttpMethod.DELETE, "/api/v1/cities/*").hasAnyAuthority("Admin")
+				.antMatchers(HttpMethod.PUT, "/api/v1/cities/*").hasAnyAuthority("Admin")
+				.antMatchers(HttpMethod.POST, "/api/v1/cities").hasAnyAuthority("Admin")
+				.antMatchers(HttpMethod.GET, "/api/v1/cities").hasAnyAuthority("Admin")
 				.anyRequest().authenticated()
 			.and()
 			.httpBasic()

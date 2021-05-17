@@ -20,7 +20,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "User")
-//@Table(name = "User", catalog = "heroku_a10f190c7669d65")
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;

@@ -18,7 +18,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "City")
-//@Table(name = "City", catalog = "heroku_a10f190c7669d65")
 public class City implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -57,7 +56,7 @@ public class City implements Serializable {
 	 * Constructor for class Admin
 	 */
 	public City() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/**
