@@ -1,7 +1,5 @@
 package com.vti.mock.dto.search;
 
-import java.util.List;
-
 public class CityDTOSearch {
 
 	private String name;

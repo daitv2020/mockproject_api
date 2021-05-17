@@ -14,7 +14,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Admin")
-//@Table(name = "Admin", catalog = "heroku_a10f190c7669d65")
 public class Admin implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -37,8 +36,14 @@ public class Admin implements Serializable {
 	 * Constructor for class Admin
 	 */
 	public Admin() {
-		// TODO Auto-generated constructor stub
 	}
+
+	public Admin(int id, String email) {
+		super();
+		this.id = id;
+		this.email = email;
+	}
+
 
 	/**
 	 * getter va setter
