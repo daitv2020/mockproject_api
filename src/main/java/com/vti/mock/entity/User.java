@@ -1,6 +1,7 @@
 package com.vti.mock.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,6 +15,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * mapping class voi table trong database
@@ -40,7 +45,12 @@ public class User implements Serializable {
 
 	@Column(name = "Email", length = 50, nullable = false, unique = true)
 	private String email;
-
+	
+	@Column(name = "LoginDate")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@CreationTimestamp
+	private LocalDateTime loginDate;
+	
 	/**
 	 * join with city table -> Favourite city
 	 */
@@ -90,7 +100,19 @@ public class User implements Serializable {
 		this.email = email;
 	}
 	
+	public LocalDateTime getLoginDate() {
+		return loginDate;
+	}
+	
+	public void setLoginDate(LocalDateTime loginDate) {
+		this.loginDate = loginDate;
+	}
+	
 	public List<City> getFavoriteCities() {
 		return favoriteCities;
+	}
+	
+	public void setFavoriteCities(List<City> favoriteCities) {
+		this.favoriteCities = favoriteCities;
 	}
 }

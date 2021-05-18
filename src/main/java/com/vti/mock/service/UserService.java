@@ -48,6 +48,22 @@ public class UserService implements IUserService{
 		return userRepository.findAll(where, pageable);
 	}
 
+    /**
+     * get info by id
+     */
+    @Override
+    public User getUserById(int id) {
+        return userRepository.findById(id).get();
+    }
+	
+    /**
+     * get info by fbid
+     */
+    @Override
+	public User getUserByFbId(String fbId) {
+		return userRepository.findByFacebookId(fbId);
+	}
+    
 	/**
 	 * create user
 	 */
@@ -56,8 +72,16 @@ public class UserService implements IUserService{
 		userRepository.save(user);
 	}
 
+    /**
+     * update info city
+     */
+    @Override
+    public void updateUser(User user) {
+        userRepository.save(user);
+    }
+    
 	/**
-	 * delete 1 user
+	 * delete 1 city
 	 */
 	@Override
 	public void deleteUser(int id) {

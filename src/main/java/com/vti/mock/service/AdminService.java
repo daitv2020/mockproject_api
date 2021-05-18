@@ -31,7 +31,6 @@ public class AdminService implements IAdminService{
 				admin.getEmail(), 
 				admin.getPassword(),
 				AuthorityUtils.createAuthorityList(role));
-		
 	}
 
 	@Override

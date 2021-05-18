@@ -59,6 +59,12 @@ public class City implements Serializable {
 		
 	}
 
+	public City(int id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+
+
 	/**
 	 * getter va setter
 	 */

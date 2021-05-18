@@ -11,7 +11,13 @@ public interface IUserService {
 	
 	public Page<User> getAllUsers(Pageable pageable, String search);
 	
+	public User getUserById(int id);
+	
+	public User getUserByFbId(String fbId);
+	
 	public void createUser(User user);
 
+	public void updateUser(User user);
+	
 	public void deleteUser(int id);
 }
