@@ -15,7 +15,7 @@ import com.vti.mock.repository.IAdminRepository;
 public class AdminService implements IAdminService{
 	@Autowired
 	private IAdminRepository adminRepository;
-	
+	// Phân quyền khi đăng nhập của Admin
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		Admin admin = adminRepository.findByEmail(email);
