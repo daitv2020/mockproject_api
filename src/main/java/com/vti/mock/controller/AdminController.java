@@ -19,6 +19,8 @@ public class AdminController {
 	@Autowired
 	private IAdminService adminService;
 	
+	// login Admin
+	
 	@GetMapping()
 	public Page<Admin> getallADmin(Pageable pageable) {
 		
