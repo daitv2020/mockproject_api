@@ -178,6 +178,10 @@ public class UserController {
 		if (userService.getUserById(id) == null) {
 			return "Delete failed!";
 		}
+		
+		User user = userService.getUserById(id);
+		user.getFavoriteCities().clear();
+		
 		userService.deleteUser(id);
 		
 		return "Delete Successfuly!";
