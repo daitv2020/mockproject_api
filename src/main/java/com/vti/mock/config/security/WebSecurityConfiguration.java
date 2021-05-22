@@ -48,6 +48,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, "/api/v1/users/fbId/favourite").permitAll()
 				.antMatchers(HttpMethod.DELETE, "/api/v1/users/fbId/favourite").permitAll()
 				.antMatchers(HttpMethod.GET, "/api/v1/users").hasAnyAuthority("Admin")
+				.antMatchers(HttpMethod.GET, "/api/v1/users/").hasAnyAuthority("Admin")
 				.antMatchers(HttpMethod.GET, "/api/v1/users/*").permitAll()
 				.antMatchers(HttpMethod.GET, "/api/v1/cities").permitAll()
 				.anyRequest().authenticated()
