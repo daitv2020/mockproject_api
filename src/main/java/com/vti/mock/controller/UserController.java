@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vti.mock.dto.create.UserDTO;
 import com.vti.mock.dto.favorite.FavouriteCityDTO;
+import com.vti.mock.dto.search.CityDTOSearch;
+import com.vti.mock.dto.search.ListUserDTO;
 import com.vti.mock.entity.City;
 import com.vti.mock.entity.User;
 import com.vti.mock.service.ICityService;
@@ -37,33 +39,25 @@ public class UserController {
 	 * get list user by filter, search with character
 	 */
 	@GetMapping()
-	public Page<UserDTO> getAllUsers(Pageable pageable,
+	public Page<ListUserDTO> getAllUsers(Pageable pageable,
 			@RequestParam(name = "search", required = false) String search) {
 
 		Page<User> users = userService.getAllUsers(pageable, search);
 
-		Page<UserDTO> usersDto = users.map(new Function<User, UserDTO>() {
+		Page<ListUserDTO> listUsersDTO = users.map(new Function<User, ListUserDTO>() {
 
 			@Override
-			public UserDTO apply(User entity) {
+			public ListUserDTO apply(User entity) {
 
-				List<FavouriteCityDTO> cityDTOs = new ArrayList<>();
+				ListUserDTO listUserDTO = new ListUserDTO(entity.getId(), entity.getName(), entity.getEmail(),
+						entity.getFacebookId(), entity.getLoginDate());
 
-				UserDTO userDTO = new UserDTO(entity.getId(), entity.getName(), entity.getEmail(),
-						entity.getFacebookId(), entity.getLoginDate(), cityDTOs);
-
-				for (City city : entity.getFavoriteCities()) {
-					cityDTOs.add(new FavouriteCityDTO(city.getId(), city.getName()));
-				}
-
-				userDTO.setFavouriteCities(cityDTOs);
-
-				return userDTO;
+				return listUserDTO;
 			}
 		});
-
-		return usersDto;
+		return listUsersDTO;
 	}
+	
 
 	/*
 	 * get info user by id
@@ -91,8 +85,8 @@ public class UserController {
 	/*
 	 * get info user by fbId
 	 */
-	@GetMapping(value = "/fbId")
-	public UserDTO getUserByFbId(@RequestParam(name = "fbId", required = true) String fbId) {
+	@GetMapping(value = "/{fbId}")
+	public UserDTO getUserByFbId(@PathVariable(name = "fbId") String fbId) {
 		User user = userService.getUserByFbId(fbId);
 		if (user == null) {
 			return null;
