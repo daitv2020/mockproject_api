@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vti.mock.dto.create.UserDTO;
 import com.vti.mock.dto.favorite.FavouriteCityDTO;
+import com.vti.mock.dto.search.ListUsersDTO;
 import com.vti.mock.entity.City;
 import com.vti.mock.entity.User;
 import com.vti.mock.service.ICityService;
@@ -37,62 +38,30 @@ public class UserController {
 	 * get list user by filter, search with character
 	 */
 	@GetMapping()
-	public Page<UserDTO> getAllUsers(Pageable pageable,
+	public Page<ListUsersDTO> getAllUsers(Pageable pageable,
 			@RequestParam(name = "search", required = false) String search) {
 
 		Page<User> users = userService.getAllUsers(pageable, search);
 
-		Page<UserDTO> usersDto = users.map(new Function<User, UserDTO>() {
+		Page<ListUsersDTO> listUsersDTO = users.map(new Function<User, ListUsersDTO>() {
 
 			@Override
-			public UserDTO apply(User entity) {
+			public ListUsersDTO apply(User entity) {
 
-				List<FavouriteCityDTO> cityDTOs = new ArrayList<>();
+				ListUsersDTO listUserDTO = new ListUsersDTO(entity.getId(), entity.getName(), entity.getEmail(),
+						entity.getFacebookId(), entity.getLoginDate());
 
-				UserDTO userDTO = new UserDTO(entity.getId(), entity.getName(), entity.getEmail(),
-						entity.getFacebookId(), entity.getLoginDate(), cityDTOs);
-
-				for (City city : entity.getFavoriteCities()) {
-					cityDTOs.add(new FavouriteCityDTO(city.getId(), city.getName()));
-				}
-
-				userDTO.setFavouriteCities(cityDTOs);
-
-				return userDTO;
+				return listUserDTO;
 			}
 		});
-
-		return usersDto;
-	}
-
-	/*
-	 * get info user by id
-	 */
-	@GetMapping(value = "/{id}")
-	public UserDTO getUserById(@PathVariable(name = "id") int id) {
-		User user = userService.getUserById(id);
-		if (user == null) {
-			return null;
-		}
-
-		List<FavouriteCityDTO> cityDTOs = new ArrayList<>();
-
-		UserDTO userDTO = new UserDTO(user.getId(), user.getName(), user.getEmail(), user.getFacebookId(), user.getLoginDate(), cityDTOs);
-
-		for (City city : user.getFavoriteCities()) {
-			cityDTOs.add(new FavouriteCityDTO(city.getId(), city.getName()));
-		}
-
-		userDTO.setFavouriteCities(cityDTOs);
-
-		return userDTO;
+		return listUsersDTO;
 	}
 
 	/*
 	 * get info user by fbId
 	 */
-	@GetMapping(value = "/fbId")
-	public UserDTO getUserByFbId(@RequestParam(name = "fbId", required = true) String fbId) {
+	@GetMapping(value = "/{fbId}")
+	public UserDTO getUserByFbId(@PathVariable(name = "fbId") String fbId) {
 		User user = userService.getUserByFbId(fbId);
 		if (user == null) {
 			return null;
